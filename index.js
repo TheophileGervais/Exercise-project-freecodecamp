@@ -76,7 +76,7 @@ app.post("/api/users/:_id/exercises", (req, res) => {
     username: userObject.username, 
     description: description, 
     duration: duration,
-    date: toUsedate,
+    date: toUsedate.toDateString(),
     _id: userObject._id
   };
   console.log(exercise);
