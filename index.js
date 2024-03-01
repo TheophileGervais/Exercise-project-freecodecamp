@@ -65,6 +65,7 @@ app.post("/api/users/:_id/exercises", (req, res) => {
   const notIsoDate = new Date(toUsedateString);
   const toUsedate = notIsoDate.toISOString();
   console.log(toUsedateString);
+  console.log(toUsedate);
 
   const idtofind = req.params._id;
   console.log(idtofind);
