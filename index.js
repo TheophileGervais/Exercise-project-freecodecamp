@@ -174,7 +174,7 @@ app.get("/api/users/:_id/logs", (req, res) => {
   const userLogObject = findObjectById(usersLog, idtofind);
   userLogObject.count = userLogObject.log.length;
   for(let i = 0; i < userLogObject.count; ++i){
-  console.log("The date for the "+i"'th element of log is "+userLogObject.log[i].date);
+  console.log("The date for the "+ i + "'th element of log is " + userLogObject.log[i].date);
   }
   console.log(JSON.stringify(userLogObject));
 
