@@ -54,15 +54,17 @@ app.post("/api/users/:_id/exercises", (req, res) => {
   const duration = parseFloat(req.body.duration);
   console.log(duration);
 
-  let toUsedate;
+  let toUsedateString;
   
   if(!req.body.date) {
-    toUsedate = new Date();
+    toUsedateString = new Date();
   }
   else {
-    toUsedate = req.body.date;
+    toUsedateString = req.body.date;
   }
-  console.log(toUsedate);
+  const notIsoDate = new Date(toUsedateString);
+  const toUsedate = notIsoDate.toISOString();
+  console.log(toUsedateString);
 
   const idtofind = req.params._id;
   console.log(idtofind);
@@ -70,11 +72,13 @@ app.post("/api/users/:_id/exercises", (req, res) => {
   const userObject = findObjectById(users, idtofind);
   console.log(userObject);
 
-  const exercise = {username: userObject.username, 
-                    description: description, 
-                    duration: duration,
-                    date: toUsedate.toDateString(),
-                    _id: userObject._id};
+  const exercise = {
+    username: userObject.username, 
+    description: description, 
+    duration: duration,
+    date: toUsedate,
+    _id: userObject._id
+  };
   console.log(exercise);
 
   res.json(exercise);
