@@ -17,7 +17,14 @@ app.post("/api/users", (req, res) => {
   // Generate userID
   const userID = users.length + 1;
 
-  //Create new user object
+  // Create new user object
+  const newUser = {username: username, _id: userID}
+
+  // Push new user to the array
+  users.push(newUser);
+
+  // Respond with the new user
+  res.json(newUser);
 })
 
 const listener = app.listen(process.env.PORT || 3000, () => {
