@@ -56,6 +56,8 @@ app.post("/api/users", (req, res) => {
   // Generate userID
   let randomInteger;
   do {
+    let min = 1;
+    let max = 1000000;
     randomInteger = Math.floor(Math.random() * (max - min + 1)) + min;
     console.log("randomInteger is" + randomInteger);
   } while(findObjectById(users, randomInteger));
