@@ -26,7 +26,7 @@ app.post("/api/users", (req, res) => {
   const userID = users.length + 1;
 
   // Create new user object
-  const newUser = {username: username, _id: userID}
+  const newUser = { username, _id: userID}
 
   // Push new user to the array
   users.push(newUser);
