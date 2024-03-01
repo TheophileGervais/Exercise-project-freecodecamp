@@ -30,6 +30,7 @@ function findObjectById(array, id) {
 
 function findObjectByUsername(array, username) {
   for (let i = 0; i < array.length; i++) {
+      console.log("array at " + i + " is " + array[i]);
       if (array[i].username == username) {
           return array[i];
       }
@@ -46,6 +47,8 @@ app.post("/api/users", (req, res) => {
 
   // Check if user already exists
   let matchingObject = findObjectByUsername(users, username);
+  console.log("matching object is" + matchingObject)
+
   if(matchingObject) {
     res.json(matchingObject);
   }
@@ -54,6 +57,7 @@ app.post("/api/users", (req, res) => {
   let randomInteger;
   do {
     randomInteger = Math.floor(Math.random() * (max - min + 1)) + min;
+    console.log("randomInteger is" + randomInteger);
   } while(findObjectById(users, randomInteger));
 
   userID = randomInteger;
