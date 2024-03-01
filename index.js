@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
 let users = [];
 
 app.post("/api/users", (req, res) => {
-  const username = req.body;
+  const username = req.body.username;
   console.log(username);
 
   // Generate userID
