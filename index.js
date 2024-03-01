@@ -63,7 +63,7 @@ app.post("/api/users/:_id/exercises", (req, res) => {
     toUsedateString = req.body.date;
   }
   const notIsoDate = new Date(toUsedateString);
-  const toUsedate = notIsoDate.toISOString();
+  let toUsedate = notIsoDate.toISOString();
   console.log(toUsedateString);
   console.log(toUsedate);
 
