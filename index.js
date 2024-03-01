@@ -50,22 +50,27 @@ app.get("/api/users", (req, res) => {
 
 app.post("/api/users/:_id/exercises", (req, res) => {
   const description = req.body.description;
+  console.log(description);
   const duration = req.body.duration;
+  console.log(duration);
   
   if(!req.body.date) {
-    const date = new Date();
+    const toUsedate = new Date();
   }
-  else {const date = req.body.date;
+  else {const toUsedate = req.body.date;
   }
+  console.log(toUsedate);
 
   const idtofind = req.body._id;
+  console.log(idtofind);
 
   const userObject = findObjectById(users, idtofind);
+  console.log(userObject);
 
   const exercise = {username: userObject.username, 
                     description: description, 
                     duration: duration,
-                    date: date,
+                    date: toUsedate,
                     _id: userObject._id};
   console.log(exercise);
 })
