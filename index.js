@@ -76,6 +76,8 @@ app.post("/api/users/:_id/exercises", (req, res) => {
                     date: toUsedate,
                     _id: userObject._id};
   console.log(exercise);
+
+  res.json(exercise);
 })
 
 const listener = app.listen(process.env.PORT || 3000, () => {
