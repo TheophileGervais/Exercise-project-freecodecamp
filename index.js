@@ -161,7 +161,7 @@ app.post("/api/users/:_id/exercises", (req, res) => {
   // Push the exercise in the corresponding user log
   const userLogObjectPlace = findPlaceById(usersLog, idtofind);
   usersLog[userLogObjectPlace].log.push(exercise);
-  console.log("This user's log is" + usersLog[userLogObjectPlace].log);
+  console.log("This user's log is" + JSON.stringify(usersLog[userLogObjectPlace].log));
 
   // Send response
   res.json(exercise);
@@ -172,7 +172,8 @@ app.post("/api/users/:_id/exercises", (req, res) => {
 app.get("/api/users/:_id/logs", (req, res) => {
   const idtofind = req.params._id;
   const userLogObject = findObjectById(usersLog, idtofind);
-  console.log(userLogObject);
+  userLogObject.count = userLogObject.log.length;
+  console.log(JSON.stringify(userLogObject));
 
   res.json(userLogObject);
 })
