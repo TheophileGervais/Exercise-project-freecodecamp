@@ -54,17 +54,18 @@ app.post("/api/users/:_id/exercises", (req, res) => {
   const duration = parseFloat(req.body.duration);
   console.log(duration);
 
-  let toUsedateString;
+  let toUsedate
   
   if(!req.body.date) {
-    toUsedateString = new Date();
+    toUsedate = new Date();
   }
   else {
-    toUsedateString = req.body.date;
+    let toUsedateString = req.body.date;
+    const notIsoDate = new Date(toUsedateString);
+    toUsedate = new Date(notIsoDate.toISOString());
+    console.log(toUsedateString);
   }
-  const notIsoDate = new Date(toUsedateString);
-  let toUsedate = notIsoDate.toISOString();
-  console.log(toUsedateString);
+
   console.log(toUsedate);
 
   const idtofind = req.params._id;
