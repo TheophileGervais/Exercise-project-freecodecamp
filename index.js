@@ -53,11 +53,14 @@ app.post("/api/users/:_id/exercises", (req, res) => {
   console.log(description);
   const duration = req.body.duration;
   console.log(duration);
+
+  let toUsedate;
   
   if(!req.body.date) {
-    const toUsedate = new Date();
+    toUsedate = new Date();
   }
-  else {const toUsedate = req.body.date;
+  else {
+    toUsedate = req.body.date;
   }
   console.log(toUsedate);
 
