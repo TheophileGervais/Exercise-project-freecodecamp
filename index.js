@@ -64,7 +64,7 @@ app.post("/api/users/:_id/exercises", (req, res) => {
   }
   console.log(toUsedate);
 
-  const idtofind = req.body._id;
+  const idtofind = req.params._id;
   console.log(idtofind);
 
   const userObject = findObjectById(users, idtofind);
