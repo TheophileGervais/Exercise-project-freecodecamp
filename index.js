@@ -51,7 +51,7 @@ app.get("/api/users", (req, res) => {
 app.post("/api/users/:_id/exercises", (req, res) => {
   const description = req.body.description;
   console.log(description);
-  const duration = req.body.duration;
+  const duration = parseFloat(req.body.duration);
   console.log(duration);
 
   let toUsedate;
