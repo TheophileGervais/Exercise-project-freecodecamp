@@ -16,6 +16,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Parse JSON bodies (as sent by API clients)
 app.use(bodyParser.json());
 
+function findObjectById(array, id) {
+  for (let i = 0; i < array.length; i++) {
+      if (array[i]._id == id) {
+          return array[i];
+      }
+  }
+  // Return null if no object with the specified _id is found
+  return null;
+}
+
 let users = [];
 
 app.post("/api/users", (req, res) => {
@@ -36,6 +46,28 @@ app.post("/api/users", (req, res) => {
 
 app.get("/api/users", (req, res) => {
   res.json(users);
+})
+
+app.post("/api/users/:_id/exercises", (req, res) => {
+  const description = req.body.description;
+  const duration = req.body.duration;
+  
+  if(!req.body.date) {
+    const date = new Date();
+  }
+  else {const date = req.body.date;
+  }
+
+  const idtofind = req.body._id;
+
+  const userObject = findObjectById(users, idtofind);
+
+  const exercise = {username: userObject.username, 
+                    description: description, 
+                    duration: duration,
+                    date: date,
+                    _id: userObject._id};
+  console.log(exercise);
 })
 
 const listener = app.listen(process.env.PORT || 3000, () => {
