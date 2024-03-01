@@ -13,6 +13,7 @@ let users = [];
 
 app.post("/api/users", (req, res) => {
   const username = req.body;
+  console.log(username);
 
   // Generate userID
   const userID = users.length + 1;
