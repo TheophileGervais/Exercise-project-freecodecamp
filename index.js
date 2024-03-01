@@ -173,6 +173,7 @@ app.get("/api/users/:_id/logs", (req, res) => {
   const idtofind = req.params._id;
   const userLogObject = findObjectById(usersLog, idtofind);
   userLogObject.count = userLogObject.log.length;
+  console.log(userLogObject.date);
   console.log(JSON.stringify(userLogObject));
 
   res.json(userLogObject);
