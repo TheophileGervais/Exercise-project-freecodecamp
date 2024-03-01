@@ -20,13 +20,12 @@ let users = [];
 
 app.post("/api/users", (req, res) => {
   const username = req.body.username;
-  console.log(username);
 
   // Generate userID
   const userID = users.length + 1;
 
   // Create new user object
-  const newUser = { username, _id: userID}
+  const newUser = {username: username, _id: userID.toString()}
 
   // Push new user to the array
   users.push(newUser);
