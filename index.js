@@ -16,6 +16,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Parse JSON bodies (as sent by API clients)
 app.use(bodyParser.json());
 
+/*************************************************************************
+**************************************************************************/
+
 // This function accepts id as its argument and finds the object
 // in the array the value of which at the "_id" key if equal to id
 function findObjectById(array, id) {
@@ -28,6 +31,8 @@ function findObjectById(array, id) {
   return null;
 }
 
+// This function accepts username as its argument and finds the object
+// in the array the value of which at the "_id" key if equal to username
 function findObjectByUsername(array, username) {
   for (let i = 0; i < array.length; i++) {
       console.log("array.username at " + i + " is " + array[i].username);
@@ -35,12 +40,20 @@ function findObjectByUsername(array, username) {
           return array[i];
       }
   }
-  // Return null if no object with the specified _id is found
+  // Return null if no object with the specified username is found
   return null;
 }
 
+
+/**************************************************************************
+****************************************************************************/
+
 // Initiate the "users" array
 let users = [];
+let usersLog = [];
+
+/************************************************************************
+***********************************************************************/
 
 app.post("/api/users", (req, res) => {
   const username = req.body.username;
@@ -65,10 +78,14 @@ app.post("/api/users", (req, res) => {
   userID = randomInteger;
 
   // Create new user object
-  const newUser = {username: username, _id: userID.toString()}
+  const newUser = {username: username, _id: userID.toString()};
+  // Create new userLog
+  const newUserLog = {username: username, count: log.length, _id: userID.toString(), log: [],}
 
   // Push new user to the array
   users.push(newUser);
+  // Push new user log to usersLog array
+  usersLog.push(newUserLog);
 
   // Respond with the new user
   res.json(newUser);}
@@ -77,6 +94,9 @@ app.post("/api/users", (req, res) => {
 app.get("/api/users", (req, res) => {
   res.json(users);
 })
+
+/*********************************************************************
+***********************************************************************/
 
 app.post("/api/users/:_id/exercises", (req, res) => {
 
@@ -121,16 +141,21 @@ app.post("/api/users/:_id/exercises", (req, res) => {
   };
   console.log(exercise);
 
-  
-
   // Send response
   res.json(exercise);
 })
 
+/*************************************************************************/
+
 app.get("/api/users/:_id/logs", (req, res) => {
   const idtofind = req.params._id;
-  const userObject = findObjectById(users, idtofind);
+  const userLogObject = findObjectById(usersLog, idtofind);
+  console.log(userLogObject);
+
+  res.json(userLogObject);
 })
+
+/************************************************************************/
 
 const listener = app.listen(process.env.PORT || 3000, () => {
   console.log('Your app is listening on port ' + listener.address().port)
