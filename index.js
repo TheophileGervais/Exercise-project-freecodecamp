@@ -44,6 +44,19 @@ function findObjectByUsername(array, username) {
   return null;
 }
 
+// This function accepts id as its argument and finds the place
+// in the array of the object the value of which at the "_id" 
+// key if equal to id
+function findPlaceById(array, id) {
+  for (let i = 0; i < array.length; i++) {
+      if (array[i]._id == id) {
+          return i;
+      }
+  }
+  // Return null if no object with the specified _id is found
+  return null;
+}
+
 
 /**************************************************************************
 ****************************************************************************/
@@ -80,7 +93,11 @@ app.post("/api/users", (req, res) => {
   // Create new user object
   const newUser = {username: username, _id: userID.toString()};
   // Create new userLog
-  const newUserLog = {username: username, count: log.length, _id: userID.toString(), log: [],}
+  const newUserLog = {
+    username: username, 
+    count: 0, 
+    _id: userID.toString(), 
+    log: [],}
 
   // Push new user to the array
   users.push(newUser);
@@ -140,6 +157,11 @@ app.post("/api/users/:_id/exercises", (req, res) => {
     _id: userObject._id
   };
   console.log(exercise);
+
+  // Push the exercise in the corresponding user log
+  const userLogObjectPlace = findPlaceById(usersLog, idtofind);
+  usersLog[userLogObjectPlace].log.push(exercise);
+  console.log("This user's log is" + usersLog[userLogObjectPlace].log);
 
   // Send response
   res.json(exercise);
