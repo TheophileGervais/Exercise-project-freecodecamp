@@ -183,19 +183,19 @@ app.get("/api/users/:_id/logs", (req, res) => {
 
   // Apply "from" date filter if provided
   if (from) {
-    userLogObject.log = userLogObject.log.filter(element => element.date >= from);
+    userLogObject.log = userLogObject.log.filter(element => new Date(element.date) >= new Date(from));
   }
 
   // Apply 'to' date filter if provided
   if (to) {
-    userLogObject.log = userLogObject.log.filter(log => log.date <= to);
+    userLogObject.log = userLogObject.log.filter(element => new Date(element.date) <= new Date(to));
   }
 
   // Apply 'limit' filter if provided
   if (limit) {
     userLogObject.log = userLogObject.log.slice(0, parseInt(limit, 10));
   }
-  
+
   userLogObject.count = userLogObject.log.length;
   res.json(userLogObject);
 })
