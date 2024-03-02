@@ -198,8 +198,15 @@ app.get("/api/users/:_id/logs", (req, res) => {
     userLogObjectUnique.log = userLogObjectUnique.log.slice(0, parseInt(limit, 10));
   }
 
-  userLogObjectUnique.count = userLogObjectUnique.log.length;
-  res.json(userLogObjectUnique);
+
+  const responseObj = {
+    username: userLogObject.username,
+    count: userLogObjectUnique.log.length,
+    _id: userLogObject._id,
+    log: userLogObjectUnique.log
+  }
+  
+  res.json(responseObj);
 })
 
 /************************************************************************/
