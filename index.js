@@ -172,12 +172,29 @@ app.post("/api/users/:_id/exercises", (req, res) => {
 app.get("/api/users/:_id/logs", (req, res) => {
   const idtofind = req.params._id;
   const userLogObject = findObjectById(usersLog, idtofind);
+  const { from, to, limit } = req.query;
+
   userLogObject.count = userLogObject.log.length;
+  
   for(let i = 0; i < userLogObject.count; ++i){
-  console.log(typeof(userLogObject.log[i].date));
   console.log("The date for the "+ i + "'th element of log is " + userLogObject.log[i].date);
   }
   console.log(JSON.stringify(userLogObject));
+
+  // Apply "from" date filter if provided
+  if (from) {
+    userLogObject.log = userLogObject.log.filter(element => element.date >= from);
+  }
+
+  // Apply 'to' date filter if provided
+  if (to) {
+    userLogObject.log = userLogObject.log.filter(log => log.date <= to);
+  }
+
+  // Apply 'limit' filter if provided
+  if (limit) {
+    userLogObject.log = userLogObject.log.slice(0, parseInt(limit, 10));
+  }
 
   res.json(userLogObject);
 })
