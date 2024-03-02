@@ -181,23 +181,25 @@ app.get("/api/users/:_id/logs", (req, res) => {
   }
   console.log(JSON.stringify(userLogObject));
 
+  let userLogObjectUnique = userLogObject;
+
   // Apply "from" date filter if provided
   if (from) {
-    userLogObject.log = userLogObject.log.filter(element => new Date(element.date) >= new Date(from));
+    userLogObjectUnique.log = userLogObjectUnique.log.filter(element => new Date(element.date) >= new Date(from));
   }
 
   // Apply 'to' date filter if provided
   if (to) {
-    userLogObject.log = userLogObject.log.filter(element => new Date(element.date) <= new Date(to));
+    userLogObjectUnique.log = userLogObjectUnique.log.filter(element => new Date(element.date) <= new Date(to));
   }
 
   // Apply 'limit' filter if provided
   if (limit) {
-    userLogObject.log = userLogObject.log.slice(0, parseInt(limit, 10));
+    userLogObjectUnique.log = userLogObjectUnique.log.slice(0, parseInt(limit, 10));
   }
 
-  userLogObject.count = userLogObject.log.length;
-  res.json(userLogObject);
+  userLogObjectUnique.count = userLogObjectUnique.log.length;
+  res.json(userLogObjectUnique);
 })
 
 /************************************************************************/
