@@ -181,31 +181,31 @@ app.get("/api/users/:_id/logs", (req, res) => {
   }
   console.log(JSON.stringify(userLogObject));
 
-  let userLogObjectUnique = userLogObject;
+  // Create a copy of the original log array
+  let filteredLogs = [...userLogObject.log];
 
-  // Apply "from" date filter if provided
+  // Filter logs based on 'from' date if provided
   if (from) {
-    userLogObjectUnique.log = userLogObjectUnique.log.filter(element => new Date(element.date) >= new Date(from));
+    filteredLogs = filteredLogs.filter(element => new Date(element.date) >= new Date(from));
   }
 
-  // Apply 'to' date filter if provided
+  // Filter logs based on 'to' date if provided
   if (to) {
-    userLogObjectUnique.log = userLogObjectUnique.log.filter(element => new Date(element.date) <= new Date(to));
+    filteredLogs = filteredLogs.filter(log => new Date(log.date) <= new Date(to));
   }
 
   // Apply 'limit' filter if provided
   if (limit) {
-    userLogObjectUnique.log = userLogObjectUnique.log.slice(0, parseInt(limit, 10));
+    filteredLogs = filteredLogs.slice(0, parseInt(limit, 10));
   }
 
-
+  // Create a new object to hold both original logs and filtered logs
   const responseObj = {
-    username: userLogObject.username,
-    count: userLogObjectUnique.log.length,
-    _id: userLogObject._id,
-    log: userLogObjectUnique.log
-  }
-  
+    ...userLogObject,
+    log: filteredLogs,
+    count: filteredLogs.length // Update count based on filtered logs
+  };
+
   res.json(responseObj);
 })
 
